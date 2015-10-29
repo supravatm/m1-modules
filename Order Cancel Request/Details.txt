@@ -1,0 +1,14 @@
+Title		: Order Cancel Request
+
+Description	: Request for cancel a order by customer. Also sent a mail notification to admin and a copy to customer.
+
+Compatible with	: 1.7, 1.8, 1.8.1, 1.9
+
+Platform	: Community
+
+Order Cancel Request ver. 1.1.0
+
+Features	:
+ - A cancel request form for customer in frontend.
+ - Send request mail to admin on submission of form also a copy to customer with details of cancel order.
+ - A list of cancel request on backend. Also can check details of request.

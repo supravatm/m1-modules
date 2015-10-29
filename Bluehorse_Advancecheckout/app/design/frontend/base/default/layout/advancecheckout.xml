@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<checkout_onepage_index>
+		<reference name="right">
+			<remove name="checkout.progress"/>
+			<block type="checkout/onepage_progress" name="bhcheckout.progress" before="-" template="advancecheckout/onepage/progress.phtml">
+				<block type="checkout/onepage_progress" name="billing.progress" template="advancecheckout/onepage/progress/billing.phtml"></block>
+				<block type="checkout/onepage_progress" name="payment.progress" template="advancecheckout/onepage/progress/payment.phtml"></block>
+			</block>
+		</reference>
+	</checkout_onepage_index>
+</layout>

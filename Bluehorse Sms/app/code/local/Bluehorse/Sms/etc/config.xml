@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config> 
+    <modules>
+        <Bluehorse_Sms>
+            <version>0.0.1</version>
+        </Bluehorse_Sms>
+    </modules>
+    <global>
+        <models>
+            <Bluehorse_sms>
+               	<class>Bluehorse_Sms_Model</class>
+            </Bluehorse_sms>
+        </models>
+        <events>
+            <sales_order_place_after>
+                <observers>
+                    <Bluehorse_sms>
+                        <class>Bluehorse_sms/observer</class>
+                        <method>verifySms</method>
+                        <type>singleton</type>
+                    </Bluehorse_sms>
+                </observers>
+            </sales_order_place_after>
+			 <sales_order_shipment_save_after>
+                <observers>
+                    <Bluehorse_sms>
+                        <class>Bluehorse_sms/observer</class>
+                        <method>shipSms</method>
+                        <type>singleton</type>
+                    </Bluehorse_sms>
+                </observers>
+            </sales_order_shipment_save_after>
+			<sales_order_save_commit_after>
+                <observers>
+                    <Bluehorse_sms>
+                        <class>Bluehorse_sms/observer</class>
+                        <method>completeSms</method>
+                        <type>singleton</type>
+                    </Bluehorse_sms>
+                </observers>
+            </sales_order_save_commit_after>
+        </events>
+		<helpers>
+		  <sms>
+			<class>Bluehorse_Sms_Helper</class>
+		  </sms>
+		</helpers>
+    </global>
+
+</config>

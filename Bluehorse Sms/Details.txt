@@ -1,0 +1,14 @@
+Title		: ValueFirst SMS Magento Extension
+
+Description	: Send a SMS on register customer mobile number in the time of order, order shipment and order complete.
+
+Compatible with	: 1.7, 1.8, 1.8.1, 1.9
+
+Platform	: Community
+
+ValueFirst SMS ver. 1.1.0
+
+Features	:
+ - Send order details to customer mobile.
+ - Send shipment details.
+ - And order complete message.

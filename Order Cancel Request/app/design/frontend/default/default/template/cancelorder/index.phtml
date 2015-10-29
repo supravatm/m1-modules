@@ -1,0 +1,59 @@
+<?php $customer = Mage::getSingleton('customer/session')->getCustomer(); ?>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="page-title">
+    <h1><?php echo Mage::helper('cancelorder')->__('Order Cancellation Form') ?></h1>
+</div>
+<form action="<?php echo $this->getUrl('cancelorder/index/post') ?>" id="cancelorderForm" method="post" enctype="multipart/form-data">
+    <div class="fieldset">
+        <h2 class="legend"><?php echo Mage::helper('cancelorder')->__('Order Information') ?></h2>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <label for="order_id" class="required"><em>*</em><?php echo Mage::helper('cancelorder')->__('Order ID') ?></label>
+                    <div class="input-box">
+                        <input name="order_id" id="order_id" title="<?php echo Mage::helper('cancelorder')->__('Order ID') ?>" 
+                        value="<?php if($_GET['orderId']){echo $_GET['orderId'];} ?>" class="input-text required-entry" type="text" readonly="readonly" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="email" class="required"><em>*</em><?php echo Mage::helper('cancelorder')->__('Email') ?></label>
+                    <div class="input-box">
+                        <input name="email" id="email" title="<?php echo Mage::helper('cancelorder')->__('Email') ?>" value="<?php if($email = $customer->getEmail()){echo $email = $customer->getEmail();} ?>" class="input-text required-entry validate-email" type="text" readonly="readonly" />
+                    </div>
+                </div>
+            </li>
+            
+            <li class="fields">
+                <div class="field">
+                    <label for="name" class="required"><em>*</em><?php echo Mage::helper('cancelorder')->__('Name') ?></label>
+                    <div class="input-box">
+                        <input name="name" id="name" title="<?php echo Mage::helper('cancelorder')->__('Name') ?>" value="<?php if($customer->getName()){echo $customer->getName();} ?>" class="input-text required-entry" type="text" readonly="readonly" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="phone" class="required"><?php echo Mage::helper('cancelorder')->__('Phone No') ?></label>
+                    <div class="input-box">
+                        <input name="phone" id="phone" title="<?php echo Mage::helper('cancelorder')->__('Phone No') ?>" value="" class="input-text validate-number" type="text" />
+                    </div>
+                </div>
+            </li>
+            
+            <li class="wide">
+                <label for="reason" class="required"><em>*</em><?php echo Mage::helper('cancelorder')->__('Reason') ?></label>
+                <div class="input-box">
+                    <textarea name="reason" id="reason" title="<?php echo Mage::helper('cancelorder')->__('Reason') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <p class="required"><?php echo Mage::helper('cancelorder')->__('* Required Fields') ?></p>
+        <button type="submit" title="<?php echo Mage::helper('cancelorder')->__('Submit') ?>" class="button"><span><span><?php echo Mage::helper('cancelorder')->__('Submit') ?></span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var cancelorderForm = new VarienForm('cancelorderForm', true);
+//]]>
+</script>

@@ -1,0 +1,28 @@
+<div class="page-title">
+    <h1><?php echo $this->__('TESTIMONIALS') ?></h1>
+</div>
+<p>
+We have invited recognized national leaders to join us in our mission sharing with us their insights and experiences in developing needed and effective developmental programs.
+We believe that a variety of perspectives provides our programs the most innovative and effective practices for our community.
+</p>
+<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('testimonial/testimonialform.phtml')->toHtml() ?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $collection = $this->getCollection(); ?>
+<div id="testimonials">
+<?php if($collection->getSize()): ?>
+<ul>
+<?php foreach($collection as $item): ?>
+<li>
+<div class="testimonials_text">
+<?php echo $item->getTestimonialText();?><br>
+<span><?php echo $item->getTestimonialName();?><br>
+<?php echo $item->getCountry();?>&nbsp;&nbsp;&nbsp;<?php echo $item->getCreatedTime();?></span></div>
+<div class="clear"></div></li>
+<?php endforeach ?> 
+</ul>
+<?php echo $this->getPagerHtml(); ?>
+<?php else: ?>
+    <p style="margin:4% 4%;"><?php echo $this->__('The collection is empty.'); ?></p>
+<?php endif ?>
+</div>
+

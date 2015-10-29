@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <cancelorder_adminhtml_cancel_index>
+	<reference name="content">
+	  <block type="cancelorder/adminhtml_cancel" name="cancel" />
+	</reference>
+  </cancelorder_adminhtml_cancel_index>
+</layout>

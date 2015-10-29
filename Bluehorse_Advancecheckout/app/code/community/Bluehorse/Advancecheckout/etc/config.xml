@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bluehorse_Advancecheckout>
+            <version>0.0.1</version>
+        </Bluehorse_Advancecheckout>
+    </modules>
+    <global>
+        <blocks>
+            <checkout>
+                <rewrite>
+                    <onepage>Bluehorse_Advancecheckout_Block_Onepage</onepage><!-- rewrite the onepage chackout block -->
+                    <onepage_billing>Bluehorse_Advancecheckout_Block_Onepage_Billing</onepage_billing>
+                    <onepage_payment>Bluehorse_Advancecheckout_Block_Onepage_Payment</onepage_payment>
+                    <onepage_progress>Bluehorse_Advancecheckout_Block_Onepage_Progress</onepage_progress>
+                </rewrite>
+            </checkout>
+        </blocks>
+        <helpers>
+            <advancecheckout>
+                <class>Bluehorse_Advancecheckout_Helper</class>
+            </advancecheckout>
+        </helpers>
+        <models>
+            <advancecheckout>
+                <class>Bluehorse_Advancecheckout_Model</class>
+            </advancecheckout>
+        </models>
+    </global>
+    <default>
+        <checkout>
+            <options>
+                <hide_shipping>1</hide_shipping>
+                <default_shipping>tablerate_bestway</default_shipping><!-- set the default shipping method code -->
+            </options>
+        </checkout>
+    </default>
+    <frontend>
+        <routers>
+            <checkout>
+                <args>
+                    <modules>
+                        <Bluehorse_Advancecheckout before="Mage_Checkout">Bluehorse_Advancecheckout</Bluehorse_Advancecheckout>
+                    </modules>
+                </args>
+            </checkout>
+        </routers>
+        <layout>
+            <updates>
+                <advancecheckout>
+                    <file>advancecheckout.xml</file>
+                </advancecheckout>
+            </updates>
+        </layout>
+     </frontend>
+</config>

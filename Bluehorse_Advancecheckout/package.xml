@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+    <name>Bluehorse_Advancecheckout</name>
+    <version>0.1.0</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/osl-3.0.php">OSL-3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Advance Checkout is reduces checkout proceed steps.</summary>
+    <description>Advance Checkout &#xD;
+&#xD;
+Advance Checkout extension reduces the checkout process steps. Advance Checkout extension provides minimal process where customer not need to fill up billing address &amp; not require to select any shipping information. This is automatically selected by pragmatically. </description>
+    <notes>This is a released as a complete stable version. </notes>
+    <authors><author><name>Supravat Mondal</name><user>MageTeche</user><email>supravat.com@gmail.com</email></author></authors>
+    <date>2015-08-03</date>
+    <time>18:52:39</time>
+    <contents><target name="magecommunity"><dir name="Bluehorse"><dir name="Advancecheckout"><dir name="Block"><dir name="Onepage"><file name="Billing.php" hash="f50a582cf6e358da09b5ef6ed9de997b"/><file name="Payment.php" hash="91abdbf359e19dca8b4602745d601c5e"/><file name="Progress.php" hash="233d23db0989993e43c1be879b40dfcc"/></dir><file name="Onepage.php" hash="31749bb1aa9cc2a081965adb92f2ee60"/></dir><dir name="Helper"><file name="Data.php" hash="6716125876fb87f26d48a454f66ae599"/></dir><dir name="controllers"><file name="OnepageController.php" hash="4a8ea67945f65dd862724c7c92c011c1"/></dir><dir name="etc"><file name="config.xml" hash="55bf973d01de8130cce62acc92dd788b"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Bluehorse_Advancecheckout.xml" hash="b6150e7e43fdc491c588ddfdb035dff8"/></dir></target><target name="magedesign"><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="advancecheckout.xml" hash="b3febeff55295aacb5b78a1967833f3b"/></dir><dir name="template"><dir name="advancecheckout"><dir name="onepage"><dir name="progress"><file name="billing.phtml" hash="4a193201bb913ee80500165c750469e0"/><file name="payment.phtml" hash="9721d97eeba66f9a770fef5e5611e1d3"/></dir><file name="progress.phtml" hash="8665e0ae2dd273e2da207545ce51f46b"/></dir></dir></dir></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.3.0</min><max>5.6.11</max></php></required></dependencies>
+</package>
