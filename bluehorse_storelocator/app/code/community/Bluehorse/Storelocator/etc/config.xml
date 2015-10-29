@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Configuration file
+ *
+ * @category   BlueHorse
+ * @package    Bluehorse_Storelocator
+ * @author     Supravat Mondal
+ */
+-->
+<config>
+    <modules>
+        <Bluehorse_Storelocator>
+            <version>0.1.0</version>
+        </Bluehorse_Storelocator>
+    </modules>
+    
+    <global>
+         <models>
+            <bluehorse_storelocator>
+                <class>Bluehorse_Storelocator_Model</class>
+                <resourceModel>storelocator_resource</resourceModel>
+            </bluehorse_storelocator>
+            <storelocator_resource>
+                <class>Bluehorse_Storelocator_Model_Resource</class>
+                <entities>
+                    <storelocator>
+                        <table>bluehorse_storelocator</table>
+                    </storelocator>
+                    <storelocator_store>
+                        <table>bluehorse_storelocator_store</table>
+                    </storelocator_store>
+                </entities>
+            </storelocator_resource>
+        </models>
+        
+        <helpers>
+            <bluehorse_storelocator>
+                <class>Bluehorse_Storelocator_Helper</class>
+            </bluehorse_storelocator>  
+        </helpers>
+        
+        <blocks>
+            <bluehorse_storelocator>
+                <class>Bluehorse_Storelocator_Block</class>
+            </bluehorse_storelocator>
+        </blocks>
+        
+        <resources>
+            <bluehorse_storelocator_setup>
+                <setup>
+                    <module>Bluehorse_Storelocator</module>
+                    <class>Bluehorse_Storelocator_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </bluehorse_storelocator_setup>
+            
+            <bluehorse_storelocator_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </bluehorse_storelocator_write>
+            
+            <bluehorse_storelocator_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </bluehorse_storelocator_read>
+        </resources>
+        
+    </global>
+    
+    <frontend>
+        <routers>
+            <bluehorse_storelocator>
+                <use>standard</use>
+                <args>
+                    <module>Bluehorse_Storelocator</module>
+                    <frontName>storelocator</frontName>
+                </args>
+            </bluehorse_storelocator>
+        </routers>
+        
+        <!-- set frontend layout file-->
+        <layout>
+            <updates>
+                <bluehorse_storelocator>
+                    <file>bluehorse_storelocator.xml</file>
+                </bluehorse_storelocator>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Bluehorse_Storelocator after="Mage_Adminhtml">Bluehorse_Storelocator_Adminhtml</Bluehorse_Storelocator>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    
+    
+    <adminhtml>
+        <!-- ACL for sections -->
+        <acl>
+           <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+               <admin>
+                   <children>
+                       <system>
+                           <children>
+                               <config>
+                                   <children>
+                                       <bluehorse_storelocator_general_setting translate="title" module="bluehorse_storelocator">
+                                           <title>Store Locator General Settings</title>
+                                       </bluehorse_storelocator_general_setting>
+                                   </children>
+                               </config>
+                           </children>
+                       </system>
+                   </children>
+               </admin>
+           </resources>
+        </acl>
+        
+        <!-- Admin layout configuration -->
+        <layout>
+            <updates>
+                <bluehorse_storelocator>
+                    <file>bluehorse_storelocator.xml</file>
+                </bluehorse_storelocator>
+            </updates>
+        </layout>
+        
+    </adminhtml>
+    
+    <!-- Set default values for system varablses -->
+    <default>
+        <bluehorse_storelocator_general_setting>
+            <bluehorse_storelocator_status>
+                <enable>1</enable>
+            </bluehorse_storelocator_status>
+            
+            <bluehorse_storelocator_display_setting>
+                <default_radius>100</default_radius>
+                <zoom_level>6</zoom_level>
+                <stores_per_page>8</stores_per_page>
+            </bluehorse_storelocator_display_setting>
+        </bluehorse_storelocator_general_setting>
+    </default> 
+</config>

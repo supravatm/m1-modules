@@ -1,0 +1,197 @@
+<?php
+/**
+ * Storelocator template for stores list
+ *
+ * @author Magento
+ */
+
+/**
+ * @var $this Bluehorse_Storelocator_Block_List
+ * @see Bluehorse_Storelocator_Block_List
+ */
+?>
+<?php
+$markers = array();
+?>
+<div class="page-title">
+    <h1><?php echo Mage::helper('bluehorse_storelocator')->__('Store Locator') ?></h1>
+</div>
+<div class="col-xs-12" style="padding-left:0px; padding-right:0px;"> 
+<div class="country-search">
+    <form role="form" class="form-horizontal" action="<?php echo $this->getPostActionUrl() ?>" method="get" id="addressSearch"> 
+        <div class="col-xs-12 col-sm-5">
+            <label class="col-xs-12 col-sm-3 control-label mob-paddingLR0" for="inputCountry" style="color:#FFF;">COUNTRY</label>
+            <div class="col-xs-12 col-sm-9 mob-paddingLR0">
+            <input type="hidden" id="country_value" value="USA">
+            <?php $_countries = $this->getCountries();?>
+				<select name="country" id="country" onchange="getCity(this.value);" class="form-control mob-paddingLR0">
+               <option value=""><?php echo $this->__('-- Please Select --'); ?></option>
+                                   <?php foreach($_countries as $_countryCode=>$_countryName): ?>
+                                    <option value="<?php echo $_countryCode; ?>" 
+                                        <?php if($this->getFormData()->getCountry() == $_countryCode):?>selected="selected"<?php endif;?>
+                                        <?php if($this->getFormData()->getCountry() == $_countryCode): 
+											$_countryLabel = $_countryName;
+                                        endif;?>>
+                                        <?php echo $_countryName; ?>
+                                    </option>
+                                    <?php endforeach; ?>
+                            
+            </select>                    
+          </div>                  
+        </div>
+        <div class="col-xs-12 col-sm-4">             
+            <label class="col-xs-12 col-sm-2 control-label" for="inputCity" style="color:#FFF;">CITY</label>
+            <div class="col-xs-12 col-sm-9">            
+            <input type="text" name="city" id="city" value="<?php echo $this->escapeHtml($this->getFormData()->getCity()) ?>" title="<?php echo $this->__('City') ?>" class="form-control" />
+            </div>               
+        </div>
+        <div class="col-xs-12 col-sm-3 mob-paddingLR0">             
+			<button type="submit" title="<?php echo $this->__('Search') ?>" class="btn btn-warning"><span><span><?php echo $this->__('Search') ?></span></span></button>
+			<button type="reset" title="<?php echo $this->__('Reset') ?>" class="btn btn-default" onClick="setLocation('<?php echo Mage::getUrl('*/*/index') ?>')"><span><span><?php echo $this->__('Reset') ?></span></span></button>
+        </div>
+        </form>
+    </div>
+</div>
+
+<?php
+    $_StoreCollection = $this->getStoreCollection();
+    $i = 1;
+    $totalStoreCount = $_StoreCollection->count(); 
+?>
+<div class="your-store-title">
+    <?php echo Mage::helper('bluehorse_storelocator')->__('Your Stores') ?>
+</div>
+<?php 
+
+/************** FOR GOOGLE MAP *********************************/
+if($totalStoreCount) {
+	foreach ($_StoreCollection as $store) {
+	$i++;
+	// for google map
+	$markers[$i]['name'] = $store->getName();
+	$markers[$i]['lat'] = $store->getLatitude();
+	$markers[$i]['long'] = $store->getLongitude();
+
+	}
+}
+?>
+
+<div id="stores-list-gmap-div location-map">
+    <div id="store-list-map-canvas">&nbsp;</div>
+</div>
+<?php if(is_array($markers) && count($markers)>0 ) :?>
+ <script>
+  //<![CDATA[
+  var markers = [
+<?php foreach ($markers as $marker) : ?>
+ ['<?php echo $marker['name'];?>',<?php echo $marker['lat'];?>,<?php echo $marker['long'];?>],
+<?php endforeach ?>
+  ];
+    //]]>
+ </script>
+<?php endif ?>
+
+<script type="text/javascript">
+    //<![CDATA[
+        var addressSearch = new VarienForm('addressSearch', true);
+    //]]>
+    </script>
+  <script>
+      //<![CDATA[
+    var googleMapDivId = 'store-list-map-canvas';
+    google.maps.event.addDomListener(window, 'load', place_multiple_markers(markers, googleMapDivId));
+      //]]>
+</script>
+
+<?php /************** END GOOGLE MAP *********************************/ ?>
+
+<?php 
+$class = 'display:none';
+if($this->getFormData()->getCountry()) {
+	$_countries = array();
+	$_countries[$this->getFormData()->getCountry()] = $_countryLabel;
+	$class = 'display:block';
+} elseif($this->getFormData()->getCity()) {
+	$_countries = array();
+	$_countries = $this->getCountriesByCity($this->getFormData()->getCity());
+	$class = 'display:block';
+}
+
+
+?>
+<div class="clear"></div>
+<div class="location-grid">
+  <?php $cnt = 1; ?>
+  <?php foreach($_countries as $_countryCode=>$_countryName): ?>
+  <?php $_cities	=	$this->getCitiesByCountryCode($_countryCode); ?>
+  <?php if(count($_cities) > 0) { ?>
+  <div rel="accordian" class="panel-grid">
+    <div rel="handle" class="panel-title">
+      <a href="javascript:void(0)">
+      <?php if($_countryCode): ?>
+      <?php  echo ucfirst($_countryName); ?><br>
+      <?php  endif; ?>
+      </a>
+      <?php //var_dump($country['value']);?>
+    </div>
+    <div rel="handleContainer" class="panel-detail" style="<?php echo $class; ?>">
+		<?php $_storeCollection = $this->getCitiesByCountryCode($_countryCode); ?>
+      <ul>
+         <?php foreach ($_storeCollection as $store): ?>
+        <li class="store-list">
+          <h6><a href="javascript:void(0);"><?php echo $this->escapeHtml(ucfirst($store->getName())) ?></a></h6>
+          <p>
+			<!-- country -->
+			<?php if($store->getCountry()): ?>
+			<?php echo ucfirst($this->getCountryName($store->getCountry())); ?><br>
+			<?php endif; ?>
+                        <!-- State -->
+                        <?php if($store->getState()): ?>
+                        <?php echo $this->escapeHtml(ucfirst($store->getState())); ?><br>
+                        <?php endif; ?>			
+           <!-- City -->
+                        <?php if($store->getCity()): ?>
+                        <?php echo $this->escapeHtml(ucfirst($store->getCity())) ;?><br>
+                        <?php endif; ?>
+                     <!-- Store Address -->
+                     <?php if($store->getStreetAddress()): ?>
+                      <?php echo $this->escapeHtml($store->getStreetAddress()) ?><br>
+                      <?php endif; ?>
+                      
+                        <!-- Zip Code -->
+                        <?php if($store->getZipcode()): ?>
+                        Zip Code:<?php echo $this->escapeHtml($store->getZipcode()) ?><br>
+                        <?php endif; ?>
+                        <!-- Phone -->
+                        <?php if($store->getPhone()): ?>
+                        Phone:<?php echo $this->escapeHtml($store->getPhone()) ?><br>
+                        <?php endif; ?>
+				                                                                                                      
+          </p>
+          <?php 
+            //Get store google map related information
+			$storeName = $store->getName();
+			$storeLat = $store->getLatitude();
+			$storeLong = $store->getLongitude();
+			$storeRadius = $this->getRadius($store);
+			$storeZoomLevel = $this->getZoomLevel($store);
+            ?>
+          <?php if($storeLat && $storeLong): ?>
+          <button onclick="initialize(<?php echo $storeLat ;?>, <?php echo $storeLong ;?>, <?php echo $storeRadius ;?>, <?php echo $storeZoomLevel ;?>, '<?php echo $storeName ;?>', 'store-list-map-canvas');" class="button" title="<?php echo Mage::helper('bluehorse_storelocator')->__('View Map') ?>" type="button">
+          <span>
+          <span>
+          <?php echo Mage::helper('bluehorse_storelocator')->__('View Map') ?>
+          </span>
+          </span>
+          </button>
+          <?php endif ;?>
+        </li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+  </div>
+  <?php } ?>
+  <?php $cnt++; ?>
+  <?php endforeach; ?>
+</div>
+
